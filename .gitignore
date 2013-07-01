@@ -13,6 +13,8 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
-/.idea
+doc/
 /tmp
-/.git
+*.swp
+*~
+.idea
