@@ -1,0 +1,59 @@
+<div id="side">
+  <%= form_tag search_tours_path, method: :get do %>
+      <%= select_tag :search_mod, options_for_select([['Sphinx',1],['Elastic', 2]], params[:search_mod]) %>
+      <p>
+        <%= text_field_tag :search, params[:search] %>
+
+      <p> Страна: </p>
+      <ul>
+        <% Country.all.each do |tag| %>
+            <li><%= tag.name %> <%= check_box_tag 'country_name[]', tag.name %></li>
+
+        <% end %>
+
+      </ul>
+      <p> Тип тура: </p>
+      <ul>
+        <% Type.all.each do |tag| %>
+            <li><%= tag.name %> <%= check_box_tag 'type_name[]', tag.name %></li>
+        <% end %>
+      </ul>
+      <p> Дата туры: </p>
+      <p>
+        <%= date_field_tag :start %>
+        <%= date_field_tag :end %>
+      </p>
+      <p> Цена тура: </p>
+      <p>
+        <%= text_field_tag :min %>
+        <%= text_field_tag :max %>
+      </p>
+      <p>
+        <%= submit_tag "Search", :name => nil %>
+      </p>
+  <% end %>
+</div>
+<div id="main">
+  <h1 xmlns="http://www.w3.org/1999/html">Доступные туры</h1>
+  <table>
+    <% @tours.each do |tour| %>
+        <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+          <td class="list_description">
+            <dl>
+              <dt><%= tour.title %></dt>
+              <dd>
+                <ul class="date">
+                <% tour.tourdates.each do |date| %>
+                      <li><%=localize(date.startdate, :format => '%e %B %Y') %></li>
+                <% end %>
+                    </ul>
+              </dd>
+            </dl>
+          </td>
+          <td class="price">
+            <%= number_to_currency(tour.price) %>
+          </td>
+        </tr>
+    <% end %>
+  </table>
+</div>

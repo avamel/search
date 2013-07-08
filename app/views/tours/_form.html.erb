@@ -1,0 +1,56 @@
+<%= form_for(@tour) do |f| %>
+    <% if @tour.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@tour.errors.count, "error") %> prohibited this tour from being saved:</h2>
+
+          <ul>
+            <% @tour.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :title %>
+      <br>
+      <%= f.text_field :title %>
+    </div>
+    <div class="field">
+      <%= f.label :description %>
+      <br>
+      <%= f.text_area :description %>
+    </div>
+    <div class="field">
+      <%= f.label :price %>
+      <br>
+      <%= f.text_field :price %>
+    </div>
+
+    <div class="field">
+      <%= f.fields_for :tourdates do |date| %>
+          <%= date.label "Дата тура" %>
+          <%= date.date_select :startdate, prompt: {day: 'Select day', month: 'Select month', year: 'Select year'}, include_blank: false %>
+          <% unless date.object.new_record? %>
+              <%= date.check_box '_destroy' %>
+              <%= date.label '_destroy', 'Remove' %>
+          <% end %>
+      <% end %>
+    </div>
+    <%= f.label "Country" %>
+        <% Country.all.each do |country| %>
+            <%= check_box_tag "tour[country_ids][]", country.id, f.object.countries.include?(country) %>
+            <%= country.name %>
+    <% end %>
+
+    <p>
+      <%= f.label "Type" %>
+      <% Type.all.each do |type| %>
+          <%= check_box_tag "tour[type_ids][]", type.id, f.object.types.include?(type) %>
+          <%= type.name %>
+      <% end %>
+    </p>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

@@ -1,0 +1,21 @@
+<%= form_for(@tourdate) do |f| %>
+  <% if @tourdate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tourdate.errors.count, "error") %> prohibited this tourdate from being saved:</h2>
+
+      <ul>
+      <% @tourdate.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :startdate %><br>
+    <%= f.date_select :startdate %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

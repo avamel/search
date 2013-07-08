@@ -1,4 +1,15 @@
 SearchTours::Application.routes.draw do
+  resources :tourdates
+
+  resources :types
+
+  resources :countries
+
+  resources :tours do
+    get 'search', on: :collection
+  end
+
+  root to: "tours#search"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

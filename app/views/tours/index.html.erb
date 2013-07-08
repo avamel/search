@@ -1,0 +1,19 @@
+<h1 xmlns="http://www.w3.org/1999/html">Listing tours</h1>
+
+<% @tours.each do |tour| %>
+    <span>Название тура:</span>
+    <p><%= tour.title %></p>
+    <span>Описание тура:</span>
+    <p><%= tour.description %></p>
+    <span>Цена тура:</span>
+    <p><%= tour.price %></p>
+    <span>Дата выезда:</span>
+    <% tour.tourdates.each do |date| %>
+        <%= date.startdate.strftime("%B %e, %Y") %>
+    <% end %>
+    <p><%= link_to 'Show', tour %><%= link_to 'Edit', edit_tour_path(tour) %><%= link_to 'Destroy', tour, method: :delete, data: {confirm: 'Are you sure?'} %></p>
+<% end %>
+
+<br>
+
+<%= link_to 'New Tour', new_tour_path %>

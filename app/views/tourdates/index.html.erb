@@ -1,0 +1,27 @@
+<h1>Listing tourdates</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Startdate</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tourdates.each do |tourdate| %>
+      <tr>
+        <td><%= tourdate.startdate %></td>
+        <td><%= link_to 'Show', tourdate %></td>
+        <td><%= link_to 'Edit', edit_tourdate_path(tourdate) %></td>
+        <td><%= link_to 'Destroy', tourdate, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tourdate', new_tourdate_path %>

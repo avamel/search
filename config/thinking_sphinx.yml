@@ -1,0 +1,8 @@
+development:
+ morphology: stem_enru
+ mem_limit: 128M
+ enable_star: true
+ min_infix_len: 3
+ in_prefix_len: 3
+ index_exact_words: 1
+ expand_keywords: 1

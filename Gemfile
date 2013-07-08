@@ -31,7 +31,11 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
-
+gem 'thinking-sphinx'
+gem 'mysql2', '0.3.12b5'
+gem 'nested_set'
+gem 'tire'
+gem 'whenever'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

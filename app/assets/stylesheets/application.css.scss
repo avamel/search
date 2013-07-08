@@ -1,0 +1,99 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+#banner {
+  font: small-caps 40px/40px "Times New Roman", serif;
+  color: #282;
+  background: #ffffff;
+  padding: 40px;
+  border-bottom: 2px solid;
+  text-align: center;
+
+  img {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    float: left;
+  }
+}
+#main {
+  margin-left: 17em;
+  background: #ffffff;
+  padding: 1em;
+}
+#side {
+  font-size: 0.5em;
+  float: left;
+  padding: 1em 2em;
+  width: 40em;
+  ul {
+    padding: 0;
+    li {
+      list-style: none;
+    }
+  }
+}
+
+.tours {
+  table {
+    border-collapse: collapse;
+  }
+  table tr td {
+    padding: 5px;
+    vertical-align: top;
+  }
+
+  .list_description {
+    width: 100%;
+
+    dl {
+      margin: 0;
+    }
+
+    dt {
+      color: #244;
+      font-weight: bold;
+      font-size: larger;
+    }
+
+    dd {
+      margin: 0;
+        ul.date {
+          margin: 0;
+          padding: 4px;
+        }
+       ul.date li {
+         border-radius: 8px ;
+         background: green;
+         color: #ffffff;
+         font-size: 0.8em;
+         display: inline;
+         margin-right: 5px;
+         padding: 3px;
+      }
+    }
+  }
+
+  .price {
+    color: #44a;
+    font-weight: bold;
+    margin: 0 auto;
+  }
+  .list_line_even {
+    background: ghostwhite;
+  }
+
+  .list_line_odd {
+    background: gainsboro;
+  }
+}
