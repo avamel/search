@@ -12,7 +12,7 @@ class Tour < ActiveRecord::Base
 
 
   mapping do
-    indexes :title, boost: 10
+    indexes :title
     indexes :description
     indexes :price, type: 'integer'
     indexes :dates, :as => 'tourdates.pluck(:startdate)', type: 'date', :index => :not_analyzed
@@ -21,7 +21,7 @@ class Tour < ActiveRecord::Base
   end
 
   def self.search_elastic(params)
-    tire.search(load: true) do
+    tire.search(page: params[:page], per_page: 1000, load: true) do
       query do
         boolean do
           should { string params[:search], default_operator: "OR" } if params[:search].present?
@@ -31,7 +31,7 @@ class Tour < ActiveRecord::Base
           should { range :price, from: params[:min].to_i, to: params[:max].to_i} if params[:min].present? && params[:max].present?
         end
       end
-      sort { by :price, "desc" } if params[:search].blank?
+      sort { by :price, "asc" }
     end
   end
 
