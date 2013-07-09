@@ -4,34 +4,9 @@ class ToursController < ApplicationController
   # GET /tours
   # GET /tours.json
   def search
-    #raise params[:start].inspect
     if params[:search_mod] == '1'
-      conditions = []
-      search = []
-      search << params[:search]
-      @price = Tour.all(:conditions => ["price >= ? AND price <= ?", params[:min], params[:max]])
-      @date =  Tourdate.all(:conditions => ["startdate >= ? AND startdate <= ?", params[:start], params[:end]])
-      price = []
-      date = []
-      @price.each do |f|
-        price << f.price
-      end
-      @date.each do |f|
-        date << f.startdate
-      end
-      #render :text => date
-      conditions << search unless params[:search].blank?
-      conditions << price if price.present?
-      conditions << date if date.present?
-      conditions << params[:country_name] if params[:country_name].present?
-      conditions << params[:type_name] if params[:type_name].present?
-      sphinx = conditions.map { |x| x.map { |f| "\"#{f}\"" }.join(' | ') }.join(' | ')
-      @tours = Tour.search( sphinx,:sql => {:include => [:countries, :types]},
-                           :match_mode => :extended, :order => :price)
-
-
+      @tours = Tour.search_sphinx(params)
     else
-      #render :text => sphinx
       @tours = Tour.search_elastic(params)
     end
   end

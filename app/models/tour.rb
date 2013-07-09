@@ -35,5 +35,31 @@ class Tour < ActiveRecord::Base
     end
   end
 
+  def self.search_sphinx(params)
+    conditions = []
+    search = []
+    search << params[:search]
+    @price = Tour.all(:conditions => ["price >= ? AND price <= ?", params[:min], params[:max]])
+    @date =  Tourdate.all(:conditions => ["startdate >= ? AND startdate <= ?", params[:start], params[:end]])
+    price = []
+    date = []
+    @price.each do |f|
+      price << f.price
+    end
+    @date.each do |f|
+      date << f.startdate
+    end
+    #render :text => date
+    conditions << search unless params[:search].blank?
+    conditions << price if price.present?
+    conditions << date if date.present?
+    conditions << params[:country_name] if params[:country_name].present?
+    conditions << params[:type_name] if params[:type_name].present?
+    sphinx = conditions.map { |x| x.map { |f| "\"#{f}\"" }.join(' | ') }.join(' | ')
+
+    ThinkingSphinx::Search.new  sphinx,:sql => {:include => [:countries, :types]},
+                          :match_mode => :extended, :order => :price
+  end
+
 
 end
